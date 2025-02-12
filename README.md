@@ -4,7 +4,7 @@ This is the C++ rewrite of [PPPwn](https://github.com/TheOfficialFloW/PPPwn)
 
 # Z-PPPwn Theme
 
-- Web Server Modded with Font & Button Style Changed
+- Web Server Modded with Font & Button Style Custom
 - Theme by [TheZodiacoX](https://github.com/thezodiacox0/)
 
 
