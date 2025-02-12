@@ -1,126 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>PPPwn</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-    @font-face {
-        font-family: 'IBM Plex Mono';
-        src: url('IBMPlexMono-Regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-    body, html {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 400;
-        font-style: normal;
-        color: white;
-        background-color: #1E1E1E;
-    }
-    h1 {
-        position: fixed;
-        right: 20px;
-        text-shadow: 2px 2px 5px #000000;
-    }
-    #result {
-        overflow-y: scroll;
-        border-radius: 16px 16px 0 0;
-        box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
-        background: linear-gradient(rgba(0, 255, 0, 0.03) 50%, rgba(0,0,0,0.2) 50%);
-        background-size: 100% 4px;
-        padding: 5px;
-    }
-    .control {
-        height: 100px;
-        display: flex;
-    }
-    button {
-        width: 50%;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 32px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 4px;
-        transition-duration: 0.4s;
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 400;
-        font-style: normal;
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 2px 3px rgba(0, 0, 0, 0.3);
-        text-shadow: 0 -1px 0 #1E1E1E;
-    }
-    #run {
-        background-color: #006600;
-    }
-    #stop {
-        background-color: #660000;
-    }
-</style>
+    <title>PPPwn++ Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @font-face {
+            font-family: 'SignPainter';
+            src: url('SignPainterHouseScript.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Pricedown';
+            src: url('Pricedown.otf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body, html {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: "SignPainter", monospace;
+            font-weight: 400;
+            font-style: normal;
+            color: white;
+            background-color: #1E1E1E;
+        }
+
+        h1 {
+            position: fixed;
+            right: 20px;
+            text-shadow: 2px 2px 5px #000000;
+        }
+
+        #result {
+            overflow-y: scroll;
+            border-radius: 16px 16px 0 0;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.6) 50%);
+            background-size: 100% 4px;
+            padding: 5px;
+        }
+
+        .control {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; 
+            padding: 0 10px; 
+        }
+
+        button {
+            flex-grow: 1;
+            height: 60px;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: 0.3s ease;
+            font-family: "Pricedown", monospace;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 -1px 0 #1E1E1E;
+        }
+
+        #run {
+            background: linear-gradient(to bottom, #333333, #1a1a1a);
+            color: #ffffff;
+        }
+
+        #stop {
+            background: linear-gradient(to bottom, #333333, #1a1a1a);
+            color: #ff0000;
+        }
+
+        #run:hover {
+            background: linear-gradient(to bottom, #444444, #222222);
+        }
+
+        #stop:hover {
+            background: linear-gradient(to bottom, #444444, #222222);
+        }
+
+        .log-text {
+            background: linear-gradient(to bottom, #FF5555, #CC0000, #660000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(255, 85, 85, 0.5);
+        }
+
+        .log-highlight {
+            background: linear-gradient(to bottom, #FFFFFF, #DDDDDD, #AAAAAA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 600px) {
+            button {
+                font-size: 18px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>PPPwn</h1>
+    <h1>Z-PPPwn</h1>
+    <div id="result"></div>
+    <div class="control">
+        <button id="run">Start</button>
+        <button id="stop">Stop</button>
+    </div>
 
-<div id="result"></div>
-<div class="control">
-    <button id="run">Run</button>
-    <button id="stop">Stop</button>
-</div>
-<script>
-    let source = new EventSource("pppwn.log")
-    let result = document.getElementById("result")
+    <script>
+        let source = new EventSource("pppwn.log")
+        let result = document.getElementById("result")
 
-    function log(msg) {
-        result.innerHTML += "<span>" + msg + "</span><br>"
-        result.scrollTop = result.scrollHeight
-    }
+        function log(msg) {
+            let span = document.createElement("span");
 
-    function clear_log(msg) {
-        result.innerHTML = ""
-        result.scrollTop = 0
-    }
-
-    source.onmessage = function (event) {
-        log(event.data)
-    };
-
-    document.getElementById("run").addEventListener("click", function () {
-        clear_log()
-        fetch('/run', {method: 'POST'})
-            .then(response => response.json())
-            .then(data => {
-                console.log("Started")
-            })
-            .catch((error) => {
-                log('Server Error: ' + error);
+            let formattedMsg = msg.replace(/(\[\+])|(\[\*])/g, function(match) {
+                return `<span class="log-highlight">${match}</span>`;
             });
-    });
 
-    document.getElementById("stop").addEventListener("click", function () {
-        fetch('/stop', {method: 'POST'})
-            .then(response => response.json())
-            .then(data => {
-                console.log("Stopped")
-            })
-            .catch((error) => {
-                log('Server Error: ' + error);
-            });
-    });
-    const convertStyle = () => {
-        result.style.setProperty('height', `${window.innerHeight - 110}px`);
-    }
+            let finalMsg = `<span class="log-text">${formattedMsg}</span>`;
 
-    window.addEventListener("resize", convertStyle);
-    window.addEventListener("DOMContentLoaded", convertStyle);
-</script>
+            span.innerHTML = finalMsg;
+            result.appendChild(span);
+            result.appendChild(document.createElement("br"));
+            result.scrollTop = result.scrollHeight;
+        }
+
+        function clear_log() {
+            result.innerHTML = ""
+            result.scrollTop = 0
+        }
+
+        source.onmessage = function (event) {
+            log(event.data)
+        };
+
+        document.getElementById("run").addEventListener("click", function () {
+            clear_log()
+            fetch('/run', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Started")
+                })
+                .catch((error) => {
+                    log('Server Error: ' + error);
+                });
+        });
+
+        document.getElementById("stop").addEventListener("click", function () {
+            fetch('/stop', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Stopped")
+                })
+                .catch((error) => {
+                    log('Server Error: ' + error);
+                });
+        });
+
+        const convertStyle = () => {
+            result.style.setProperty('height', `${window.innerHeight - 110}px`);
+        }
+
+        window.addEventListener("resize", convertStyle);
+        window.addEventListener("DOMContentLoaded", convertStyle);
+    </script>
 </body>
 </html>
