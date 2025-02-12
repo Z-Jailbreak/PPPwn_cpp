@@ -127,13 +127,13 @@ if (BUILD_CLI)
     target_compile_options(mongoose PUBLIC -DMG_ENABLE_PACKED_FS=1)
     target_include_directories(mongoose PUBLIC ${mongoose_SOURCE_DIR})
 
-    add_custom_command(
-            OUTPUT ${CMAKE_BINARY_DIR}/static.c
-            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-            COMMAND ${ZIG} cc ${CMAKE_C_FLAGS} -o ${CMAKE_BINARY_DIR}/pack ${mongoose_SOURCE_DIR}/test/pack.c
-            COMMAND ${CMAKE_BINARY_DIR}/pack web/index.html web/IBMPlexMono-Regular.ttf > ${CMAKE_BINARY_DIR}/static.c
-            DEPENDS web/index.html
-    )
+	add_custom_command(
+		OUTPUT ${CMAKE_BINARY_DIR}/static.c
+		WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+		COMMAND ${ZIG} cc ${CMAKE_C_FLAGS} -o ${CMAKE_BINARY_DIR}/pack ${mongoose_SOURCE_DIR}/test/pack.c
+		COMMAND ${CMAKE_BINARY_DIR}/pack web/index.html web/Pricedown.otf web/SignPainterHouseScript.ttf > ${CMAKE_BINARY_DIR}/static.c
+		DEPENDS web/index.html web/Pricedown.otf web/SignPainterHouseScript.ttf
+	)
 
     add_executable(${PROJECT_NAME} src/main.cpp src/web.cpp ${mongoose_SOURCE_DIR}/mongoose.c ${CMAKE_BINARY_DIR}/static.c)
     target_include_directories(${PROJECT_NAME} PRIVATE ${clipp_SOURCE_DIR}/include ${mongoose_SOURCE_DIR})

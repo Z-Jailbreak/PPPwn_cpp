@@ -1,6 +1,12 @@
-# PPPwn c++
+# PPPwn C++ 
 
 This is the C++ rewrite of [PPPwn](https://github.com/TheOfficialFloW/PPPwn)
+
+# Z-PPPwn Theme
+
+- Web Server Modded with Font & Button Style Changed
+- Theme by [TheZodiacoX](https://github.com/thezodiacox0/)
+
 
 # Features
 
@@ -35,7 +41,7 @@ pppwn list
 ### run the exploit
 
 ```shell
-pppwn --interface en0 --fw 1100 --stage1 "stage1.bin" --stage2 "stage2.bin" --timeout 10 --auto-retry
+pppwn -i en0 --fw 1100 --stage1 "stage1.bin" --stage2 "stage2.bin" -t 10 -a --web
 ```
 
 - `-i` `--interface`: the network interface which connected to ps4
